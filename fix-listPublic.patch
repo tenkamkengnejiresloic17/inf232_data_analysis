@@ -1,0 +1,15 @@
+--- a/server/routers/forms.ts
++++ b/server/routers/forms.ts
+@@ -78,6 +78,7 @@ export const formsRouter = router({
+     // Add submission count to each form
+     const formsWithCount = await Promise.all(
+       allForms.map(async (form) => {
+         const count = await countSubmissionsByFormId(form.id);
++        const formFields = await getFieldsByFormId(form.id);
+         return {
+           ...form,
+           submissionCount: count,
++          fields: formFields,
+         };
+       })
+     );
